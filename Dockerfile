@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     mysql-client \
     libpng-dev \
+    libzip-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
