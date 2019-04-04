@@ -40,18 +40,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        $this->resetBcrypt($user, $request);
-        // $verified = $this->verifyOrUpgrade($user, $request);
+    // public function login(Request $request)
+    // {
+    //     $user = User::where('email', $request->email)->first();
+    //     // $this->resetBcrypt($user, $request);
+    //     $verified = $this->verifyOrUpgrade($user, $request);
 
-        // if ($verified) {
-        //     echo "<p>Access granted</p>";
-        // } else {
-        //     echo "<p>Uh uh uh... You didn't say the magic word</p>";
-        // }
-    }
+    //     if ($verified) {
+    //         echo "<p>Access granted</p>";
+    //     } else {
+    //         echo "<p>Uh uh uh... You didn't say the magic word</p>";
+    //     }
+    // }
 
     public function verifyOrUpgrade(User $user, Request $request): bool
     {

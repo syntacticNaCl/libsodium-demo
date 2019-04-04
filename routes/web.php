@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/message', 'MessageController@index')->name('message');
+Route::post('/encrypt', 'MessageController@encrypt');
+Route::post('/decrypt', 'MessageController@decrypt');
