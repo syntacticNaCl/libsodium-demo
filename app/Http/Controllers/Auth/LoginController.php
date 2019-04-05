@@ -40,18 +40,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function login(Request $request)
-    // {
-    //     $user = User::where('email', $request->email)->first();
-    //     // $this->resetBcrypt($user, $request);
-    //     $verified = $this->verifyOrUpgrade($user, $request);
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        // $this->resetBcrypt($user, $request);
+        $verified = $this->verifyOrUpgrade($user, $request);
 
-    //     if ($verified) {
-    //         echo "<p>Access granted</p>";
-    //     } else {
-    //         echo "<p>Uh uh uh... You didn't say the magic word</p>";
-    //     }
-    // }
+        if ($verified) {
+            if ($this->attemptLogin($request)) {
+                return $this->sendLoginResponse($request);
+            }
+        } else {
+            echo "<p>Uh uh uh... You didn't say the magic word</p>";
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
 
     public function verifyOrUpgrade(User $user, Request $request): bool
     {
@@ -87,6 +91,12 @@ class LoginController extends Controller
                 'time' => 2,
             ]);
 
+            // $passwordHash = sodium_crypto_pwhash_str(
+            //     $request->password,
+            //     SODIUM_CRYPTO_PWHASH_OPSLIMIT_MODERATE,
+            //     SODIUM_CRYPTO_PWHASH_MEMLIMIT_MODERATE
+            // );
+
             $user->password = $passwordHash;
             $user->save();
 
@@ -96,6 +106,7 @@ class LoginController extends Controller
             echo "brypt upgraded to argon2id";
         }
 
+        // return sodium_crypto_pwhash_str_verify($storedPasswordHash, $request->password);
         return password_verify($request->password, $storedPasswordHash);
     }
 

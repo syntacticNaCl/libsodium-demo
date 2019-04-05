@@ -8,6 +8,9 @@ class Crypto
     /**
      * Encrypt a message
      *
+     * Uses mb_strlen in case mbstring.func_overload has been changed
+     * https://www.php.net/manual/en/mbstring.overload.php
+     *
      * @param string $message - message to encrypt
      * @param string $key - encryption key
      * @return string
@@ -36,6 +39,9 @@ class Crypto
 
     /**
      * Decrypt a message
+     *
+     * Uses mb_substr in case mbstring.func_overload has been changed
+     * https://www.php.net/manual/en/mbstring.overload.php
      *
      * @param string $encrypted - message encrypted with encrypt()
      * @param string $key - encryption key

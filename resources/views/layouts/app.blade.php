@@ -33,7 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-link" href="{{ route('message') }}">{{ __('Message') }}</a>
+                        @auth
+                            <a class="nav-link" href="{{ route('message') }}">{{ __('Message') }}</a>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -27,7 +27,6 @@ class MessageController extends Controller
         $user->save();
 
         return view('message', ['messageEncrypted' => base64_encode($encrypted)]);
-        // return redirect('home')->with('status', 'Message encrypted!');
     }
 
     public function decrypt(Request $request)
